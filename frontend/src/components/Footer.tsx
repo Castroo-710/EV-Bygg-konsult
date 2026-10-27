@@ -77,7 +77,10 @@ export default function Footer() {
 
         <div className="mt-10 border-t border-slate-800 pt-6 text-sm text-slate-500">
           © {new Date().getFullYear()} {company.name}. Org.nr {company.orgNumber}. Alla
-          rättigheter förbehållna.
+          rättigheter förbehållna.{' '}
+          <a href="/integritetspolicy/" className="underline hover:text-amber-500">
+            Integritetspolicy
+          </a>
         </div>
       </div>
     </footer>

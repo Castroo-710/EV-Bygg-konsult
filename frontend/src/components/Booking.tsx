@@ -149,8 +149,14 @@ export default function Booking() {
               required
               className="mt-1 accent-amber-600"
             />
-            Jag godkänner att {company.name} sparar och behandlar mina uppgifter för att kunna
-            besvara min förfrågan.
+            <span>
+              Jag godkänner att {company.name} sparar och behandlar mina uppgifter för att kunna
+              besvara min förfrågan. Läs mer i vår{' '}
+              <a href="/integritetspolicy/" target="_blank" className="text-amber-400 underline">
+                integritetspolicy
+              </a>
+              .
+            </span>
           </label>
 
           <div className="sm:col-span-2">
