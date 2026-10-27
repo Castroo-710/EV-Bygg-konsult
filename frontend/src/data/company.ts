@@ -1,13 +1,13 @@
 export const company = {
-  name: 'EV-Bygg-konsult',
+  name: 'EV-Byggkonsult',
   tagline: 'Från idé till färdigt bygge',
   description:
     'Vi hjälper privatpersoner och företag i Stockholmsregionen med nybyggnation, om- och tillbyggnad samt renovering — från första skiss till slutbesiktning.',
-  phone: '08-123 45 67',
-  phoneHref: 'tel:+4681234567',
-  email: 'info@ev-byggkonsult.se',
-  emailHref: 'mailto:info@ev-byggkonsult.se',
-  address: 'Byggvägen 12, 141 44 Huddinge',
+  phone: '072 406 16 34',
+  phoneHref: 'tel:+46724061634',
+  email: 'evbyggkonsult@gmail.com',
+  emailHref: 'mailto:evbyggkonsult@gmail.com',
+  address: 'Husarviksgatan 18, 115 47 Stockholm',
   orgNumber: '556000-0000',
   socials: {
     instagram: 'https://instagram.com',
