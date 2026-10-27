@@ -40,14 +40,24 @@ export default function Header() {
           </a>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="text-slate-700 md:hidden"
-          aria-label="Öppna meny"
-        >
-          {open ? <X size={26} /> : <Menu size={26} />}
-        </button>
+        <div className="flex items-center gap-3 md:hidden">
+          <a
+            href={company.phoneHref}
+            className="flex items-center gap-1.5 rounded-md bg-amber-600 px-3 py-2 text-sm font-semibold text-white"
+            aria-label={`Ring ${company.phone}`}
+          >
+            <Phone size={16} />
+            Ring
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="text-slate-700"
+            aria-label={open ? 'Stäng meny' : 'Öppna meny'}
+          >
+            {open ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
       </div>
 
       {open && (
