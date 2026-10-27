@@ -16,9 +16,9 @@ export const company = {
 }
 
 export const navLinks = [
-  { label: 'Hem', href: '#hem' },
-  { label: 'Tjänster', href: '#tjanster' },
-  { label: 'Om oss', href: '#om-oss' },
-  { label: 'Projekt', href: '#projekt' },
-  { label: 'Kontakt', href: '#kontakt' },
+  { label: 'Hem', href: '/#hem' },
+  { label: 'Tjänster', href: '/#tjanster' },
+  { label: 'Om oss', href: '/#om-oss' },
+  { label: 'Projekt', href: '/#projekt' },
+  { label: 'Kontakt', href: '/#kontakt' },
 ]

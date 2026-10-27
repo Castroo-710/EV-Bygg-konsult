@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#hem" className="text-lg font-bold tracking-tight text-slate-900">
+        <a href="/#hem" className="text-lg font-bold tracking-tight text-slate-900">
           {company.name}
         </a>
 
@@ -33,7 +33,7 @@ export default function Header() {
             {company.phone}
           </a>
           <a
-            href="#boka"
+            href="/#boka"
             className="rounded-md bg-amber-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-amber-700"
           >
             Boka konsultation
@@ -76,7 +76,7 @@ export default function Header() {
             ))}
             <li>
               <a
-                href="#boka"
+                href="/#boka"
                 onClick={() => setOpen(false)}
                 className="mt-2 block rounded-md bg-amber-600 px-4 py-2 text-center text-sm font-semibold text-white"
               >
