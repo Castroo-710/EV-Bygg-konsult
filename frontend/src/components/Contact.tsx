@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Phone, Mail, MapPin } from 'lucide-react'
 import { company } from '../data/company'
+import { submitNetlifyForm } from '../lib/netlifyForm'
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
@@ -11,18 +12,12 @@ export default function Contact() {
     event.preventDefault()
     setStatus('sending')
 
-    const form = new FormData(event.currentTarget)
-    const payload = Object.fromEntries(form.entries())
+    const form = event.currentTarget
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      if (!res.ok) throw new Error('Request failed')
+      await submitNetlifyForm('kontakt', form)
       setStatus('success')
-      event.currentTarget.reset()
+      form.reset()
     } catch {
       setStatus('error')
     }
@@ -73,6 +68,12 @@ export default function Contact() {
         </div>
 
         <form onSubmit={handleSubmit} className="lg:col-span-3 grid gap-5 sm:grid-cols-2">
+          <p hidden>
+            <label>
+              Fyll inte i detta fält: <input name="bot-field" tabIndex={-1} autoComplete="off" />
+            </label>
+          </p>
+
           <div className="flex flex-col gap-1.5">
             <label htmlFor="contact-name" className="text-sm font-medium text-slate-700">
               Namn
@@ -99,6 +100,18 @@ export default function Contact() {
           </div>
 
           <div className="flex flex-col gap-1.5 sm:col-span-2">
+            <label htmlFor="contact-phone" className="text-sm font-medium text-slate-700">
+              Telefon <span className="font-normal text-slate-400">(valfritt)</span>
+            </label>
+            <input
+              id="contact-phone"
+              name="phone"
+              type="tel"
+              className="rounded-md border border-slate-300 px-4 py-2.5 focus:border-amber-500 focus:outline-none"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1.5 sm:col-span-2">
             <label htmlFor="contact-message" className="text-sm font-medium text-slate-700">
               Meddelande
             </label>
@@ -110,6 +123,18 @@ export default function Contact() {
               className="rounded-md border border-slate-300 px-4 py-2.5 focus:border-amber-500 focus:outline-none"
             />
           </div>
+
+          <label className="flex items-start gap-3 text-sm text-slate-600 sm:col-span-2">
+            <input
+              type="checkbox"
+              name="consent"
+              value="ja"
+              required
+              className="mt-1 accent-amber-600"
+            />
+            Jag godkänner att {company.name} sparar och behandlar mina uppgifter för att kunna
+            besvara min förfrågan.
+          </label>
 
           <div className="sm:col-span-2">
             <button

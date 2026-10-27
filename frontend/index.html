@@ -11,6 +11,18 @@
     />
   </head>
   <body>
+    <!-- Static copies so Netlify detects the forms at deploy. Field names must match the React forms. -->
+    <form name="kontakt" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="name" /><input name="email" /><input name="phone" />
+      <textarea name="message"></textarea><input name="consent" /><input name="source" />
+    </form>
+    <form name="bokning" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="name" /><input name="phone" /><input name="email" />
+      <input name="preferredDate" /><input name="projectType" />
+      <textarea name="message"></textarea><input name="consent" /><input name="source" />
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

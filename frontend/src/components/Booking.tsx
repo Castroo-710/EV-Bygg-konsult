@@ -1,7 +1,15 @@
 import { useState, type FormEvent } from 'react'
+import { company } from '../data/company'
 import { services } from '../data/services'
+import { submitNetlifyForm } from '../lib/netlifyForm'
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
+
+function today() {
+  const d = new Date()
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+}
 
 export default function Booking() {
   const [status, setStatus] = useState<Status>('idle')
@@ -10,18 +18,12 @@ export default function Booking() {
     event.preventDefault()
     setStatus('sending')
 
-    const form = new FormData(event.currentTarget)
-    const payload = Object.fromEntries(form.entries())
+    const form = event.currentTarget
 
     try {
-      const res = await fetch('/api/booking', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      if (!res.ok) throw new Error('Request failed')
+      await submitNetlifyForm('bokning', form)
       setStatus('success')
-      event.currentTarget.reset()
+      form.reset()
     } catch {
       setStatus('error')
     }
@@ -43,6 +45,12 @@ export default function Booking() {
         </div>
 
         <form onSubmit={handleSubmit} className="mt-12 grid gap-5 sm:grid-cols-2">
+          <p hidden>
+            <label>
+              Fyll inte i detta fält: <input name="bot-field" tabIndex={-1} autoComplete="off" />
+            </label>
+          </p>
+
           <div className="flex flex-col gap-1.5">
             <label htmlFor="booking-name" className="text-sm font-medium text-slate-200">
               Namn
@@ -92,6 +100,7 @@ export default function Booking() {
               id="booking-date"
               name="preferredDate"
               type="date"
+              min={today()}
               className="rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-white focus:border-amber-500 focus:outline-none"
             />
           </div>
@@ -103,8 +112,13 @@ export default function Booking() {
             <select
               id="booking-type"
               name="projectType"
+              required
+              defaultValue=""
               className="rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-white focus:border-amber-500 focus:outline-none"
             >
+              <option value="" disabled>
+                Välj typ av projekt…
+              </option>
               {services.map((service) => (
                 <option key={service.title} value={service.title}>
                   {service.title}
@@ -127,6 +141,18 @@ export default function Booking() {
             />
           </div>
 
+          <label className="flex items-start gap-3 text-sm text-slate-300 sm:col-span-2">
+            <input
+              type="checkbox"
+              name="consent"
+              value="ja"
+              required
+              className="mt-1 accent-amber-600"
+            />
+            Jag godkänner att {company.name} sparar och behandlar mina uppgifter för att kunna
+            besvara min förfrågan.
+          </label>
+
           <div className="sm:col-span-2">
             <button
               type="submit"
@@ -142,7 +168,7 @@ export default function Booking() {
             )}
             {status === 'error' && (
               <p className="mt-3 text-sm text-red-400">
-                Något gick fel. Ring oss gärna direkt så hjälper vi dig.
+                Något gick fel. Ring oss gärna på {company.phone} eller mejla {company.email}.
               </p>
             )}
           </div>
